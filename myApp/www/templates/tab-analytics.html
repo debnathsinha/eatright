@@ -1,0 +1,21 @@
+<ion-view view-title="Track">
+  <ion-content>
+      <div class="button-bar">
+	<a ng-click="selectTimePeriod(0)" class="button">Daily</a>
+	<a ng-click="selectTimePeriod(1)" class="button">Weekly</a>
+	<a ng-click="selectTimePeriod(2)" class="button">Monthly</a>
+      </div>
+      <div  ng-if="dailyChartSelected">
+	<h3 style="text-align:center">What did you eat today?</h3>
+	<canvas chart="Doughnut" options="options" data="myChartData" responsive=true width="200" height="150"></canvas>
+      </div>
+      <div ng-if="weeklyChartSelected">
+	<h3 style="text-align:center">How did you do this week?</h3>
+	<canvas chart="Line" options="options" data="chart" responsive=true width="200" height="150"></canvas>
+      </div>
+      <div ng-if="monthlyChartSelected">
+	<h3 style="text-align:center">How did you do this month?</h3>
+	<canvas chart="Line" options="options" data="chart" responsive=true width="200" height="150"></canvas>
+      </div>
+  </ion-content>
+</ion-view>

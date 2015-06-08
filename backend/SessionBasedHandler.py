@@ -1,0 +1,39 @@
+import webapp2
+from webapp2_extras import sessions
+from UserModel import User
+import logging
+
+class SessionBasedHandler(webapp2.RequestHandler):
+    CURRENT_USER_ID_KEY="user_id"
+    def dispatch(self):
+        # Get session store for this request
+        self.session_store = sessions.get_store(request = self.request)
+        try:
+            # Dispatch the request
+            webapp2.RequestHandler.dispatch(self)
+        finally:
+            # Save all the sessions
+            self.session_store.save_sessions(self.response)
+            
+    def handle_exception(self, exception, mode):
+        # run the default exception handling
+        webapp2.RequestHandler.handle_exception(self,exception, mode)
+        # note the error in the log
+        logging.error("Something bad happend: %s" % str(exception))
+        # tell your users a friendly message
+        self.response.out.write("Sorry something went wrong")
+    
+    @webapp2.cached_property
+    def session(self):
+        # Returns a session using the default cookie key
+        return self.session_store.get_session()
+    
+    def get_user_from_session(self):
+        """Convenience method for retrieving the user credentials from a session
+        """
+        if self.CURRENT_USER_ID_KEY in self.session:
+            user = User.get_user_from_id(self.session.get(self.CURRENT_USER_ID_KEY))
+            return user
+        else:
+            logging.error('Session did not have user id')
+            return None

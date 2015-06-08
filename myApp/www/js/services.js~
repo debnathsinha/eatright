@@ -1,0 +1,115 @@
+angular.module('starter.services', [])
+
+.factory('Chats', function() {
+  // Might use a resource here that returns a JSON array
+
+  // Some fake testing data
+  var chats = [{
+    id: 0,
+    name: 'Ben Sparrow',
+    lastText: 'You on your way?',
+    face: 'https://pbs.twimg.com/profile_images/514549811765211136/9SgAuHeY.png'
+  }, {
+    id: 1,
+    name: 'Max Lynx',
+    lastText: 'Hey, it\'s me',
+    face: 'https://avatars3.githubusercontent.com/u/11214?v=3&s=460'
+  },{
+    id: 2,
+    name: 'Adam Bradleyson',
+    lastText: 'I should buy a boat',
+    face: 'https://pbs.twimg.com/profile_images/479090794058379264/84TKj_qa.jpeg'
+  }, {
+    id: 3,
+    name: 'Perry Governor',
+    lastText: 'Look at my mukluks!',
+    face: 'https://pbs.twimg.com/profile_images/598205061232103424/3j5HUXMY.png'
+  }, {
+    id: 4,
+    name: 'Mike Harrington',
+    lastText: 'This is wicked good ice cream.',
+    face: 'https://pbs.twimg.com/profile_images/578237281384841216/R3ae1n61.png'
+  }];
+
+  return {
+    all: function() {
+      return chats;
+    },
+    remove: function(chat) {
+      chats.splice(chats.indexOf(chat), 1);
+    },
+    get: function(chatId) {
+      for (var i = 0; i < chats.length; i++) {
+        if (chats[i].id === parseInt(chatId)) {
+          return chats[i];
+        }
+      }
+      return null;
+    }
+  };
+})
+
+.factory('Dishes', function() {
+    var dishes = [{
+	id: 1,
+	name: 'Dish 1',
+	lastText: 'Neat dish!',
+	thumbnail_img: 'http://whatdidyoueat.typepad.com/photos/uncategorized/2007/04/09/img_7102.jpg'
+        },{
+	id: 2,
+	name: 'Dish 2',
+	lastText: 'Neat dish!',
+	thumbnail_img: 'http://whatdidyoueat.typepad.com/photos/uncategorized/2007/04/09/img_7102.jpg'
+        },{
+	id: 3,
+	name: 'Dish 3',
+	lastText: 'Neat dish!',
+	thumbnail_img: 'http://whatdidyoueat.typepad.com/photos/uncategorized/2007/04/09/img_7102.jpg'
+        },{
+	id: 4,
+	name: 'Dish 4',
+	lastText: 'Neat dish!',
+	thumbnail_img: 'http://whatdidyoueat.typepad.com/photos/uncategorized/2007/04/09/img_7102.jpg'
+        },{
+	id: 5,
+	name: 'Dish 5',
+	lastText: 'Neat dish!',
+	thumbnail_img: 'http://whatdidyoueat.typepad.com/photos/uncategorized/2007/04/09/img_7102.jpg'
+        },{
+	id: 6,
+	name: 'Dish 6',
+	lastText: 'Neat dish!',
+	thumbnail_img: 'http://whatdidyoueat.typepad.com/photos/uncategorized/2007/04/09/img_7102.jpg'
+        },{
+	id: 7,
+	name: 'Dish 7',
+	lastText: 'Neat dish!',
+	thumbnail_img: 'http://whatdidyoueat.typepad.com/photos/uncategorized/2007/04/09/img_7102.jpg'
+        },{
+	id: 8,
+	name: 'Dish 8',
+	lastText: 'Neat dish!',
+	thumbnail_img: 'http://whatdidyoueat.typepad.com/photos/uncategorized/2007/04/09/img_7102.jpg'
+        },{
+	id: 9,
+	name: 'Dish 9',
+	lastText: 'Neat dish!',
+	thumbnail_img: 'http://whatdidyoueat.typepad.com/photos/uncategorized/2007/04/09/img_7102.jpg'
+        }];
+    return {
+	all: function() {
+	    return dishes;
+	},
+	remove: function(dish) {
+	    dishes.splice(dishes.indexOf(dish), 1);
+	},
+	get: function(dishId) {
+	    for (var i = 0; i < dishes.length; i++) {
+		if (dishes[i].id === parseInt(dishId)) {
+		    return dishes[i];
+		}
+		return null;
+	    }
+	}
+    }
+});

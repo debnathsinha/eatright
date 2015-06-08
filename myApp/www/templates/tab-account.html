@@ -1,0 +1,15 @@
+<ion-view view-title="Settings">
+  <ion-content>
+    <ion-list>
+    <ion-toggle  ng-model="settings.enableFriends">
+        Enable Friends
+    </ion-toggle>
+    <div class="item range">
+      1500
+      <input type="range" name="volume">
+      3000
+    </div>
+    <canvas chart="Line" options="options" data="chart" responsive=true width="200" height="150"></canvas>
+    </ion-list>
+  </ion-content>
+</ion-view>

@@ -1,0 +1,14 @@
+import webapp2
+import json
+
+class MainPage(webapp2.RequestHandler):
+    def get(self):
+        self.response.headers['Content-Type'] = 'text/plain'
+        json_data = open("sample.json").read()
+        data = json.loads(json_data)
+        self.response.headers['Access-Control-Allow-Origin'] = '*'
+        self.response.write(json.dumps(data))
+
+app = webapp2.WSGIApplication([
+    ('/', MainPage),
+], debug=True)

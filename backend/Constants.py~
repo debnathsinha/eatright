@@ -1,0 +1,67 @@
+import os
+import jinja2
+from oauth2client.client import OAuth2WebServerFlow
+from google.appengine.api import urlfetch
+from auth import sfoauth
+
+urlfetch.set_default_fetch_deadline(60)
+
+IS_DEV_APPSERVER = 'development' in os.environ.get('SERVER_SOFTWARE', '').lower()
+
+# Duplicate from auth.py, delete at first chance!
+OAUTH_SCOPE = [
+    'https://www.googleapis.com/auth/gmail.readonly',
+    'https://www.googleapis.com/auth/userinfo.email',
+    'https://www.googleapis.com/auth/userinfo.profile',
+    # Add other requested scopes.
+]
+
+constructor_kwargs = {
+                          'access_type' : 'offline',
+                          'approval_prompt': 'auto',
+                          'include_granted_scopes': 'true',
+                    }
+
+if IS_DEV_APPSERVER:
+    constructor_kwargs = {
+                          'access_type' : 'offline',
+                          'approval_prompt': 'auto',
+                          'include_granted_scopes': 'true',
+                          }
+    SIGNIN_FLOW = OAuth2WebServerFlow(client_id='1074396901150-4jfe97nvvotvda7e66mom06ajj3c3quv.apps.googleusercontent.com',
+                                      client_secret='lUB6XwCbs0AuT5fQtkN_SEsi',
+                                      scope='https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/gmail.modify',
+                                      redirect_uri='http://localhost:8080/oauth2callback',
+                                      **constructor_kwargs)
+    SFDC_SIGNIN_FLOW = sfoauth.SalesforceOAuth2WebServerFlow(client_id='3MVG9A2kN3Bn17hs2lDqbtJ6BSODUqKatHCc_YL97sz1Io18uLvJ4jLGfnlzpB4TgY3dXSURXZs06cDrsdU5_',
+                                      client_secret='1517437186545137628',
+                                      scope=['api', 'refresh_token', 'full'],
+                                      redirect_uri='http://localhost:8080/sfdcoauth2callback',
+                                      auth_uri='https://na15.salesforce.com/services/oauth2/authorize',
+                                      token_uri='https://na15.salesforce.com/services/oauth2/token')
+    serviceAccountKeyFile = "gmailytics/cosight-privatekey-tested.pem"
+else:
+    SIGNIN_FLOW = OAuth2WebServerFlow(client_id='1074396901150-3pp8nfc2e4ob2gna2o5qd5is2gfidev9.apps.googleusercontent.com',
+                                      client_secret='Q0e6WQoc-RRYShbqiO2r4uqE',
+                                      scope='https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/gmail.readonly',
+                                      redirect_uri='https://www.cosight.io/oauth2callback',
+                                      **constructor_kwargs)
+    SFDC_SIGNIN_FLOW = sfoauth.SalesforceOAuth2WebServerFlow(client_id='3MVG9A2kN3Bn17hs2lDqbtJ6BSODUqKatHCc_YL97sz1Io18uLvJ4jLGfnlzpB4TgY3dXSURXZs06cDrsdU5_',
+                                      client_secret='1517437186545137628',
+                                      scope=['api', 'refresh_token', 'full'],
+                                      redirect_uri='http://localhost:8080/sfdcoauth2callback',
+                                      auth_uri='https://na15.salesforce.com/services/oauth2/authorize',
+                                      token_uri='https://na15.salesforce.com/services/oauth2/token')
+    serviceAccountKeyFile = "gmailytics/cosight-privatekey-tested.pem"
+
+# Initializing templates
+ROOT_PATH = os.path.dirname(__file__)
+GMAILYTICS_TEMPLATE_PATH = os.path.join(ROOT_PATH,"../templates/gmailytics") 
+JINJA_ENV = jinja2.Environment(
+                               loader=jinja2.FileSystemLoader(GMAILYTICS_TEMPLATE_PATH),
+                                extensions=['jinja2.ext.autoescape'],
+                                autoescape=True)
+
+MobileJWTSecret = 'cosightiosecret'
+
+TEST_CONTEXT = False

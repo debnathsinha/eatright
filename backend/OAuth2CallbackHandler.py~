@@ -1,0 +1,39 @@
+from google.appengine.api import taskqueue
+from oauth2client.client import FlowExchangeError
+from gmailytics.SessionBasedHandler import SessionBasedHandler
+from gmailytics.Constants import SIGNIN_FLOW, MobileJWTSecret
+from gmailytics.UserModel import User
+try:
+    import json
+except ImportError:
+    import simplejson as json
+import logging
+import jwt
+
+class OAuth2CallbackHandler(SessionBasedHandler):
+    def get(self):
+        if self.request.get("error"):
+            self.redirect("/")
+            return
+        auth_code = self.request.params["code"]
+        try:
+            credentials = SIGNIN_FLOW.step2_exchange(auth_code)
+            user_id = credentials.id_token["id"]
+            user_email = credentials.id_token["email"]
+            logging.debug("Got credentials %s for user %s", credentials.to_json(), user_email)
+            if user_id:
+                user = User.get_user_from_id(user_id)
+                if not user:
+                    User.create_user(user_id, user_email)
+                    logging.debug("Adding to task queue for user email %s", user_email)
+                    taskqueue.add(url="/worker/fetchEmails", params={ 'user_id': user_id, 'user_email': user_email})
+                self.session["user_id"] = user_id
+                self.session["user_email"] = user_email
+                User.store_credentials_for_user_id(user_id, credentials)
+                token = jwt.encode({'user_id': user_id}, MobileJWTSecret)
+                self.redirect("/settings?token="+token)
+                return
+        except FlowExchangeError:
+            self.send_error(401, 'Failed to exchange authorization code')
+            return
+        self.redirect("/settings")
