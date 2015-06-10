@@ -1,0 +1,5 @@
+queue:
+- name: emailFetch
+  rate: 5/s
+  max_concurrent_requests: 5
+  

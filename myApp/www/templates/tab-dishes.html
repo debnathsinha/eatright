@@ -1,46 +1,17 @@
-<ion-view view-title="Cook">
+<ion-view view-title="Recipes">
   <ion-content>
-      <div class="button-bar">
-	<a ng-click="selectDishMode(0)" class="button">Cook</a>
-	<a ng-click="selectDishMode(1)" class="button">Takeout</a>
-      </div>
-
     <!--
     <ion-refresher pulling-text="Pull to refresh" on-refresh="doRefresh()">
     </ion-refresher>
     -->
-    <div ng-if="!takeoutMode">
-      <ion-list>
-	<ion-item class="item-remove-animate" back-img="{{dish.thumbnail_img}}" ng-repeat="dish in dishes" type="item-text-wrap" href="#/tab/dishes/{{dish.id}}">
-	  <div class="overlay">
+    <ion-list>
+      <ion-item class="item-remove-animate" back-img="{{dish.thumbnail_img}}" ng-repeat="dish in dishes" type="item-text-wrap" href="#/tab/dishes/{{dish.id}}">
+	<div class="overlay">
           <!-- <img ng-src="{{dish.thumbnail_img}}"> -->
           <h2>{{dish.name}}</h2>
           <p>{{dish.lastText}}</p>
-	  </div>
-	</ion-item>
-      </ion-list>
-    </div>
-    <div ng-if="takeoutMode">
-          <ion-list>
-	    <div class="item item-divider">
-	      June 17, 2010
-	    </div>
-	    <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="order in orders" type="item text-wrap">
-	      <h2>{{order.name}}</h2>
-	    </ion-item>
-	    <div class="item item-divider">
-	      June 16, 2010
-	    </div>
-	    <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="order in orders" type="item text-wrap">
-	      <h2>{{order.name}}</h2>
-	    </ion-item>
-	    <div class="item item-divider">
-	      June 12, 2010
-	    </div>
-	    <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="order in orders" type="item text-wrap">
-	      <h2>{{order.name}}</h2>
-	    </ion-item>
-	  </ion-list>
-    </div>
+	</div>
+      </ion-item>
+    </ion-list>
   </ion-content>
 </ion-view>

@@ -1,23 +1,50 @@
-<ion-view view-title="Order In History">
+<ion-view view-title="Shelf">
   <ion-content>
     <ion-list>
-      <div class="item item-divider">
-	June 17, 2010
+      <div class="item item-divider fresh-header">
+	Fresh
       </div>
-      <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="order in orders" type="item text-wrap">
-	<h2>{{order.name}}</h2>
+      <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="order in freshorders" type="item text-wrap">
+	<div class="row">
+	  <div class="col col-90">
+	    <h2>{{order.name}}</h2>
+	  </div>
+	  <div class="col col-10">
+	    <i class="ion-minus" ng-click="reduceQty(order)"></i>
+	    <small style="padding-right: 5px;padding-left: 5px;">{{order.qty}}</small>
+	    <i class="ion-plus" ng-click="increaseQty(order)"></i>
+	  </div>
+	</div>
       </ion-item>
-      <div class="item item-divider">
-	June 16, 2010
+      <div class="item item-divider use-soon-header">
+	Use Soon
       </div>
-      <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="order in orders" type="item text-wrap">
-	<h2>{{order.name}}</h2>
+      <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="order in usesoonorders" type="item text-wrap">
+	<div class="row">
+	  <div class="col col-90">
+	    <h2>{{order.name}}</h2>
+	  </div>
+	  <div class="col col-10">
+	    <i class="ion-minus" ng-click="reduceQty(order)"></i>
+	    <small style="padding-right: 5px;padding-left: 5px;">{{order.qty}}</small>
+	    <i class="ion-plus" ng-click="increaseQty(order)"></i>
+	  </div>
+	</div>
       </ion-item>
-      <div class="item item-divider">
-	June 12, 2010
+      <div class="item item-divider use-now-header">
+	Use Now
       </div>
-      <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="order in orders" type="item text-wrap">
-	<h2>{{order.name}}</h2>
+      <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="order in usenoworders" type="item text-wrap">
+	<div class="row">
+	  <div class="col col-90">
+	    <h2>{{order.name}}</h2>
+	  </div>
+	  <div class="col col-10">
+	    <i class="ion-minus" ng-click="reduceQty(order)"></i>
+	    <small style="padding-right: 5px;padding-left: 5px;">{{order.qty}}</small>
+	    <i class="ion-plus" ng-click="increaseQty(order)"></i>
+	  </div>
+	</div>
       </ion-item>
     </ion-list>
   </ion-content>

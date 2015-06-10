@@ -5,13 +5,18 @@ navigation history that also transitions its views in and out.
 -->
 <ion-tabs class="tabs-icon-top tabs-color-active-positive">
 
+  <!-- Chats Tab -->
+  <ion-tab title="Shelf" icon-off="ion-ios-pricetag-outline" icon-on="ion-ios-pricetag" href="#/tab/order">
+    <ion-nav-view name="tab-order"></ion-nav-view>
+  </ion-tab>
+
   <!-- Dishes Tab -->
-  <ion-tab title="Cook" icon-off="ion-ios-wineglass-outline" icon-on="ion-ios-wineglass" href="#/tab/dish">
+  <ion-tab title="Recipes" icon-off="ion-ios-wineglass-outline" icon-on="ion-ios-wineglass" href="#/tab/dish">
     <ion-nav-view name="tab-dish"></ion-nav-view>
   </ion-tab>
 
   <!-- Chats Tab -->
-  <ion-tab title="Track" icon-off="ion-ios-pulse" icon-on="ion-ios-pulse-strong" href="#/tab/analytics">
+  <ion-tab title="Health" icon-off="ion-ios-heart-outline" icon-on="ion-ios-heart" href="#/tab/analytics">
     <ion-nav-view name="tab-analytics"></ion-nav-view>
   </ion-tab>
 

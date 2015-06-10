@@ -1,1 +1,27 @@
 /* Empty. Add your own CSS if you like */
+
+.item-divider {
+    background-color: #ecebeb;
+}
+
+@font-face {
+    font-family: 'RalewayBold';
+    src: url('fonts/RalewayBold.eot');
+    src: url('fonts/RalewayBold.eot') format('embedded-opentype'),
+         url('fonts/RalewayBold.woff2') format('woff2'),
+         url('fonts/RalewayBold.woff') format('woff'),
+         url('fonts/RalewayBold.ttf') format('truetype'),
+         url('fonts/RalewayBold.svg#RalewayBold') format('svg');
+}
+
+.fresh-header {
+    color: #1acc28;
+}
+
+.use-soon-header {
+    color: #ee5823;
+}
+
+.use-now-header {
+    color: #ff0000;
+}

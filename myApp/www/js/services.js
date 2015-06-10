@@ -56,7 +56,7 @@ angular.module('starter.services', [])
         content.css({
             'background': 'url(' + url +')',
             'background-size' : 'cover',
-	    'line-height' : '200px'
+	    'line-height' : '15vh'
         });
     };
 })
@@ -123,7 +123,7 @@ angular.module('starter.services', [])
 	},
 	get: function(dishId) {
 	    for (var i = 0; i < dishes.length; i++) {
-		if (dishes[i].id === dishId) {
+		if (dishes[i].id == dishId) {
 		    return dishes[i];
 		}
 	    }

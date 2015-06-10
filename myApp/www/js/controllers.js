@@ -39,16 +39,6 @@ angular.module('starter.controllers', [])
 
   };
 
-    $scope.orders = [
-	{
-	    name: 'Chicken Pizza'
-	},
-	{
-	    name: 'Rice Bowl'
-	}
-    ];
-
-
   $scope.selectDishMode = function(mode) {
       if (mode === 0) {
 	  $scope.takeoutMode = false;
@@ -60,6 +50,7 @@ angular.module('starter.controllers', [])
 })
 
 .controller('DishDetailCtrl', function($scope, $stateParams, Dishes) {
+    console.log($stateParams.dishId);
   $scope.dish = Dishes.get($stateParams.dishId);
 })
 
@@ -116,6 +107,14 @@ angular.module('starter.controllers', [])
 		    color : "#4D5360"
 		}
 	    ];
+	    $scope.options = {}
+	    $scope.options['percentageInnerCutout'] = 90;
+	    // var canvas = angular.element(document.querySelector( "#dailyChart" ) );
+	    // var width = canvas.getContext("2d").canvas.style["width"];
+	    // width = parseInt(width.substring(0,width.length-2));
+	    // var height = canvas.getContext("2d").canvas.style["height"];
+	    // height = parseInt(height.substring(0,height.length - 2));
+	    // canvas.getContext("2d").fillText(3 + "%", width/2, height/2);
 	} else if (timePeriodEnum === 1) {
 	    $scope.dailyChartSelected = false;
 	    $scope.weeklyChartSelected = true;
@@ -168,14 +167,52 @@ angular.module('starter.controllers', [])
 })
 
 .controller('OrderCtrl', function($scope) {
-    $scope.orders = [
+    $scope.freshorders = [
 	{
-	    name: 'Chicken Pizza'
+	    name: 'Chicken Pizza',
+	    qty: '2',
 	},
 	{
-	    name: 'Rice Bowl'
+	    name: 'Rice Bowl',
+	    qty: '2',
+	    expires: '17d'
 	}
     ];
+    $scope.usesoonorders = [
+	{
+	    name: 'Spinach Pesto',
+	    qty: '2',
+	    expires: '5d'
+	},
+	{
+	    name: 'Baklava',
+	    qty: '2',
+	    expires: '5d'
+	}
+    ];
+    $scope.usenoworders = [
+	{
+	    name: 'Sour Cream',
+	    qty: '2',
+	    expires: '2d'
+	},
+	{
+	    name: 'Pork Chops',
+	    qty: '2',
+	    expires: '1d'
+	}
+    ];
+
+    $scope.reduceQty = function(order) {
+	console.log("Reducing qty");
+	console.log(order);
+	order.qty = parseInt(order.qty) - 1;
+    }
+    $scope.increaseQty = function(order) {
+	console.log("Increasing qty");
+	console.log(order);
+	order.qty = parseInt(order.qty) + 1;
+    }
 })
 
 .controller('FirstTimeCtrl', ['$scope', '$state',  function($scope, $state) {

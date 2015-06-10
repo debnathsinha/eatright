@@ -7,7 +7,7 @@
       </div>
       <div  ng-if="dailyChartSelected">
 	<h3 style="text-align:center">What did you eat today?</h3>
-	<canvas chart="Doughnut" options="options" data="myChartData" responsive=true width="200" height="150"></canvas>
+	<canvas chart="Doughnut" id="dailyChart" options="options" data="myChartData" responsive=true width="200" height="150"></canvas>
       </div>
       <div ng-if="weeklyChartSelected">
 	<h3 style="text-align:center">How did you do this week?</h3>
