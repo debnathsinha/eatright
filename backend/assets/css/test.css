@@ -1,0 +1,8 @@
+/******************************************************
+  CAROUSEL PICTURE BG
+********************************************************/
+.container-top.container-wrapper-home.carousel {
+  background: url(../img/picjumbo-diary-iphone-pen-darkened-50.png) 25% center no-repeat #394552;
+  height: 1030px;
+  background-size: 100% 100%;
+}
