@@ -33,8 +33,7 @@ class OAuth2CallbackHandler(SessionBasedHandler):
                 User.store_credentials_for_user_id(user_id, credentials)
                 taskqueue.add(url="/worker/fetchEmails", params={ 'user_id': user_id, 'user_email': user_email})
                 token = jwt.encode({'user_id': user_id}, MobileJWTSecret)
-                self.response.out.write(token)
-                #self.redirect("/settings?token="+token)
+                self.redirect("/settings?token="+token)
                 return
         except FlowExchangeError:
             self.send_error(401, 'Failed to exchange authorization code')

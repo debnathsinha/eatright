@@ -115,7 +115,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
 
   // if none of the above states are matched, use this as the fallback
   //$urlRouterProvider.otherwise('/tab/dishes');
-  if (window.localStorage['firstTimeUse'] != 'no') {
+  if ('firstTimeUse' in window.localStorage) {
     $urlRouterProvider.otherwise('/first-time');  
   } else {
      $urlRouterProvider.otherwise('/tab/dishes');  

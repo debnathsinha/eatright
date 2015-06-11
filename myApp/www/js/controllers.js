@@ -169,36 +169,51 @@ angular.module('starter.controllers', [])
 .controller('OrderCtrl', function($scope) {
     $scope.freshorders = [
 	{
-	    name: 'Chicken Pizza',
-	    qty: '2',
+	    name: 'Avocado',
+	    qty: '4',
 	},
 	{
-	    name: 'Rice Bowl',
+	    name: 'Kale',
+	    qty: '1',
+	    expires: '17d'
+	},
+	{
+	    name: 'Chicken',
 	    qty: '2',
 	    expires: '17d'
 	}
     ];
     $scope.usesoonorders = [
 	{
-	    name: 'Spinach Pesto',
+	    name: 'Milk',
+	    qty: '1',
+	    expires: '5d'
+	},
+	{
+	    name: 'Cheddar Cheese',
+	    qty: '1',
+	    expires: '5d'
+	},
+	{
+	    name: 'Ham',
 	    qty: '2',
 	    expires: '5d'
 	},
 	{
-	    name: 'Baklava',
-	    qty: '2',
+	    name: 'Ground Beef',
+	    qty: '1',
 	    expires: '5d'
 	}
     ];
     $scope.usenoworders = [
 	{
-	    name: 'Sour Cream',
-	    qty: '2',
+	    name: 'Salmon',
+	    qty: '1',
 	    expires: '2d'
 	},
 	{
-	    name: 'Pork Chops',
-	    qty: '2',
+	    name: 'Heavy Cream',
+	    qty: '1',
 	    expires: '1d'
 	}
     ];
@@ -217,9 +232,43 @@ angular.module('starter.controllers', [])
 
 .controller('FirstTimeCtrl', ['$scope', '$state',  function($scope, $state) {
   
+    $scope.startLogin = function() {
+	var ref = window.open("http://localhost:8080/api/login", '_blank', 'location=no');
+	ref.addEventListener('loadstart', function(event) {
+	    if((event.url).indexOf("http://localhost:8080/settings") == 0) {
+		ref.close();
+		$state.go("tab.dish");
+	    }
+	});
+	return false;
+    }
+
    $scope.endSlideShow = function() {
      window.localStorage['firstTimeUse'] = 'no';
      $state.go("tab.dish");  
    }
   
-}]);
+}])
+
+.factory('AuthTokenFactory', function AuthTokenFactory($window) {
+    'use strict';
+    var store = $window.localStorage;
+    var key = 'auth-token';
+    
+    function getToken() {
+	return store.getItem(key);
+    }
+
+    function setToken(token) {
+	if (token) {
+	    store.setItem(key, token);
+	} else {
+	    store.removeItem(key);
+	}
+    }
+
+    return {
+	getToken: getToken,
+	setToken: setToken
+    };
+});

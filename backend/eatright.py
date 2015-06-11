@@ -68,10 +68,11 @@ class FetchEmailHandler(SessionBasedHandler):
                 tree_string = els[0].xpath("string()").strip()
                 m = re.match(r'Your order was delivered\r\non\r\n([0-9]+/[0-9]+)\r\n@\r\n([0-9]+:[0-9]+ [AP]M)', tree_string)
                 if m:
-                    day =  m.group(1)
+                    date =  m.group(1)
+                    day = date.strip('/')[0]
+                    month = date.strip('/')[2]
                     time =  m.group(2)
                 pdb.set_trace()
-                delivered_time = els.text.strip()
             	els = tree.xpath("//*[contains(@class, 'item-name')]")
             	for el in els:
             	    item_name = el.text.strip()
