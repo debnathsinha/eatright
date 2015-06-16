@@ -1,0 +1,5 @@
+import json
+
+with open('wf-82-2109.json') as data_file:
+    data = json.loads(data_file)
+    print data
